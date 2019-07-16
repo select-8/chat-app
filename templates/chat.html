@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chat page for {{ username }}</title>
+</head>
+
+<body>
+    <h1>Welcome, {{ username }}</h1>
+    <!-- {{ chat_messages }} -->
+    <form method="POST">
+        <textarea cols="50" rows="4" name="message" id="messgage"></textarea>
+        <br>
+        <button>Send message</button>
+    </form>
+
+    {% for message in chat_messages %}
+    <!-- here we access our dictionary (messages_dict) using dot notation -->
+    <p>({{ message.timestamp }}) {{ message.from }}: {{ message.message }}</p>
+    {% endfor %}
+
+    <!-- use setTimeout to reload the page every 5 seconds -->
+    <script>
+        // get the id of the textarea message bix above
+        let textbox = document.getElementById("message")
+
+        let timer = setTimeout(function() {
+            location.reload()
+        }, 5000)
+        // add an event. whenever key is pressed in textbox this function will run,
+        // stopping timer for 5 seconds on each key press, giving is a new 5 seconds per press
+        textbox.onkeydown = function(e) {
+            clearTimeout(timer)
+
+            timer = setTimeout(function() {
+                location.reload();
+            }, 5000)
+        }
+
+    </script>
+
+</body>
+
+</html>
